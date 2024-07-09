@@ -176,6 +176,10 @@
                 const tabTitle = el.closest("[data-tabs-title]");
                 const tabsBlock = tabTitle.closest("[data-tabs]");
                 const myMobile = window.innerWidth < 768;
+                if (tabTitle.classList.contains("_tab-active") && !myMobile) {
+                    e.preventDefault();
+                    return;
+                }
                 if (!tabsBlock.querySelector("._slide")) {
                     if (isMobile && myMobile) if (tabTitle.classList.contains("_tab-active")) tabTitle.classList.remove("_tab-active"); else {
                         let tabActiveTitle = tabsBlock.querySelectorAll("[data-tabs-title]._tab-active");
@@ -438,6 +442,75 @@
     }
     const da = new DynamicAdapt("max");
     da.init();
+    document.querySelectorAll(".basis__title-animation").forEach((title => {
+        title.addEventListener("mouseenter", (() => {
+            const sliceClass = title.getAttribute("data-slice");
+            const slice = document.querySelector(`.${sliceClass}`);
+            slice.dataset.originalTransform = slice.style.transform || "translate(-50%, -50%)";
+            switch (sliceClass) {
+              case "basis__slice1":
+                slice.style.transform = `translate(-50%, -52%)  scale(1.0)`;
+                break;
+
+              case "basis__slice2":
+                slice.style.transform = `translate(-50%, -50%)  scale(1.1)`;
+                break;
+
+              case "basis__slice3":
+                slice.style.transform = `translate(-50%, -50%)  scale(1.1)`;
+                break;
+
+              case "basis__slice4":
+                slice.style.transform = `translate(-50%, -48.5%)  scale(1.1)`;
+                break;
+
+              case "basis__slice5":
+                slice.style.transform = `translate(-50%, -50%)  scale(1.1)`;
+                break;
+
+              case "basis__slice6":
+                slice.style.transform = `translate(-50%, -50%)  scale(1.1)`;
+                break;
+
+              case "basis__slice7":
+                slice.style.transform = `translate(-50%, -50%) scale(1.1)`;
+                break;
+            }
+        }));
+        title.addEventListener("mouseleave", (() => {
+            const sliceClass = title.getAttribute("data-slice");
+            const slice = document.querySelector(`.${sliceClass}`);
+            switch (sliceClass) {
+              case "basis__slice1":
+                slice.style.transform = `translate(-50%, -52%)  scale(0.9)`;
+                break;
+
+              case "basis__slice2":
+                slice.style.transform = `translate(-50%, -50%) `;
+                break;
+
+              case "basis__slice3":
+                slice.style.transform = `translate(-50%, -50%) `;
+                break;
+
+              case "basis__slice4":
+                slice.style.transform = `translate(-50%, -48.5%) `;
+                break;
+
+              case "basis__slice5":
+                slice.style.transform = `translate(-50%, -50%) `;
+                break;
+
+              case "basis__slice6":
+                slice.style.transform = `translate(-50%, -50%) `;
+                break;
+
+              case "basis__slice7":
+                slice.style.transform = `translate(-50%, -50%) scale(1.1)`;
+                break;
+            }
+        }));
+    }));
     window["FLS"] = true;
     tabs();
     showMore();
